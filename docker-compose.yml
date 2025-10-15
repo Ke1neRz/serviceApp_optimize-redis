@@ -1,0 +1,10 @@
+services:
+  web-app:
+    build:
+      context: . # Путь к Dockerfile - который нужен для билда
+    ports:
+      - "8000:8000" # из докера на наш комп
+    volumes:
+      - ./service:/service # чтобы при измении python файла не приходилось ребилдить
+    command: > # sh -c - команда линукс; 0.0.0.0-все ip на компе в порт 8000
+      sh -c "python manage.py runserver 0.0.0.0:8000" 
