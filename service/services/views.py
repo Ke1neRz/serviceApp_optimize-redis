@@ -1,6 +1,5 @@
 from django.db.models import Prefetch, F, Sum
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from django.template.context_processors import request
 
 from services.serializers import SubscriptionSerializer
 from services.models import Subscription
