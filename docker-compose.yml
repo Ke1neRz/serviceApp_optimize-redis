@@ -17,6 +17,7 @@ services:
     depends_on:
     - database 
 
+
   database:
     image: postgres:14.6-alpine
     environment:
@@ -24,14 +25,16 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
   
+
   redis:
     image: redis:7.0.5-alpine
     hostname: redis # имя в Docker
 
+
   worker:
     build:
         context: .
-    hostname: worker # имя в Docker
+    hostname: worker
     entrypoint: celery # базовая команда через которую будем вызывать другие команды
     command: -A celery_app.app worker --loglevel=info
     volumes:
@@ -41,3 +44,18 @@ services:
     depends_on:
       - redis
 
+
+  flower: # Оболочка для просмотра где какие таски запущены, что отработало и т.д.
+    build:
+        context: .
+    hostname: flower
+    entrypoint: celery
+    command: -A celery_app.app flower --loglevel=info
+    volumes:
+      - ./service:/service
+    links:
+      - redis
+    depends_on:
+      - redis
+    ports:
+      - '5555:5555'
