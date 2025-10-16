@@ -28,7 +28,7 @@ class Plan(models.Model):
 class Subscription(models.Model):
     client = models.ForeignKey(Client, on_delete=models.PROTECT, related_name='subscriptions')
     service = models.ForeignKey(Service, on_delete=models.PROTECT, related_name='subscriptions')
-    plan = models.ForeignKey(Plan, on_delete=models.PROTECT, related_name='subscriptions')
+    plan = models.ForeignKey(Plan, on_delete=models.PROTECT, related_name='subscriptions') # у каждого поля с ForeignKey образуется id: plan -> plan_id
     
     def __str__(self):
         return f"Sub for {self.client}"
