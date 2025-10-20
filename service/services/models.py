@@ -33,9 +33,8 @@ class Plan(models.Model):
     )
     plan_type = models.CharField(choices=PLAN_TYPES, max_length=10)
     discount_percent = models.PositiveIntegerField(default=0,
-                                                   validators=[
-                                                       MaxValueValidator(100)
-                                                   ])
+                                                    validators=[
+                                                        MaxValueValidator(100)])
     def __str__(self):
         return f"Tupe: {self.plan_type}"
     
